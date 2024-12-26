@@ -1,0 +1,247 @@
+'use client'
+
+import { motion } from 'framer-motion'
+import Image from 'next/image'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Icons } from '@/components/icons'
+import { RotatingGoals } from '@/components/RotatingGoals'
+
+const fadeIn = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.5 }
+};
+
+export default function Home() {
+  const handleEmailSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle email submission
+  };
+
+  return (
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative min-h-screen bg-gradient-to-b from-white to-gray-50">
+        <div className="container px-4 md:px-6 py-12">
+          <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center min-h-[calc(100vh-96px)]">
+            <motion.div 
+              className="flex flex-col gap-4"
+              {...fadeIn}
+            >
+              <motion.div 
+                className="flex items-center gap-2 mb-2"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Image
+                  src="/logo.svg"
+                  alt="Pierce Logo"
+                  width={150}
+                  height={150}
+                  priority
+                />
+              </motion.div>
+
+              <h1 className="text-4xl md:text-6xl font-bold tracking-tighter">
+                Achieve your goals with Pierce: Your AI-Powered companion
+              </h1>
+              <p className="text-xl text-muted-foreground">
+                Turn dreams into reality with personalised guidance and support
+              </p>
+              <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md">
+                <Input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="flex-1"
+                  required
+                />
+                <Button 
+                  type="submit"
+                  size="lg"
+                  className="bg-[#86d5b7] hover:bg-[#76c5a7] text-pierce-dark whitespace-nowrap"
+                >
+                  Join the early access list
+                </Button>
+              </form>
+            </motion.div>
+            <motion.div 
+              className="relative aspect-[3/4] w-full"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Image
+                src="/hero-image.jpg"
+                alt="Confident young adult achieving goals"
+                fill
+                className="object-cover rounded-lg"
+                priority
+              />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* The Problem Section */}
+      <section className="py-24 bg-white">
+        <div className="container px-4 md:px-6">
+          <motion.div 
+            className="text-center mb-12"
+            {...fadeIn}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Struggling to <RotatingGoals />?
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Many young adults face common challenges when pursuing their dreams. Here's what we help you overcome:
+            </p>
+          </motion.div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
+            {[
+              { icon: 'motivation', title: 'Lack of motivation', description: 'Stay driven with AI-powered encouragement' },
+              { icon: 'procrastination', title: 'Procrastination', description: 'Turn intention into action with timely nudges' },
+              { icon: 'direction', title: 'Unclear direction', description: 'Get clarity with structured goal planning' },
+              { icon: 'anxiety', title: 'Goal-setting anxiety', description: 'Build confidence with expert guidance' },
+            ].map((item) => {
+              const Icon = Icons[item.icon];
+              return (
+                <motion.div 
+                  key={item.title}
+                  className="flex flex-col items-center text-center p-6 rounded-lg bg-gray-50"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  viewport={{ once: true }}
+                >
+                  <Icon className="w-12 h-12 mb-4 text-[#86d5b7]" />
+                  <h3 className="font-semibold mb-2">{item.title}</h3>
+                  <p className="text-muted-foreground">{item.description}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-24 bg-gray-50">
+        <div className="container px-4 md:px-6">
+          <motion.div 
+            className="text-center mb-12"
+            {...fadeIn}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Meet Pierce: Your personal AI goal assistant
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Powered by advanced AI, Pierce helps you break down your goals into actionable steps, and motivates you to stay on track.
+            </p>
+          </motion.div>
+
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-8 items-center">
+              <motion.div 
+                className="space-y-6"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+              >
+                {[
+                  'Plan your goals with AI precision',
+                  'Break down goals into daily actions',
+                  'Stay motivated with daily check-ins',
+                  'Access curated resources and guides',
+                ].map((feature) => (
+                  <div key={feature} className="flex items-center gap-3">
+                    <div className="h-6 w-6 rounded-full bg-[#86d5b7] flex items-center justify-center">
+                      <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <span className="text-lg">{feature}</span>
+                  </div>
+                ))}
+              </motion.div>
+              
+              <motion.div 
+                className="relative h-[500px]"
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+              >
+                <Image
+                  src="/app-mockup.jpg"
+                  alt="Person using Pierce AI assistant"
+                  fill
+                  className="object-cover rounded-lg"
+                />
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="py-24 bg-[#86d5b7]/10">
+        <div className="container px-4 md:px-6">
+          <motion.div 
+            className="max-w-2xl mx-auto text-center"
+            {...fadeIn}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Ready to achieve your next goal?
+            </h2>
+            <p className="text-lg text-muted-foreground mb-8">
+              Join the waitlist for early access. We'll be in touch when we launch.
+            </p>
+            <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <Input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1"
+                required
+              />
+              <Button 
+                type="submit"
+                size="lg"
+                className="bg-[#86d5b7] hover:bg-[#76c5a7] text-pierce-dark"
+              >
+                Get early access
+              </Button>
+            </form>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-12 bg-white">
+        <div className="container px-4 md:px-6">
+          <div className="flex flex-col items-center gap-2">
+            <div className="flex items-center gap-2">
+              <Image
+                src="/logo.svg"
+                alt="Pierce Logo"
+                width={80}
+                height={80}
+              />
+            </div>
+            <p className="text-muted-foreground text-center">
+              Your AI companion for achieving goals
+            </p>
+            <div className="flex gap-6">
+              {/* Add social media links here */}
+            </div>
+            <div className="text-sm text-muted-foreground">
+              © {new Date().getFullYear()} Pierce. All rights reserved.
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+} 

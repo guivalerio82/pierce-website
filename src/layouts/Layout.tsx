@@ -1,15 +1,15 @@
 import { ReactNode } from 'react'
 
-interface LayoutProps {
+type LayoutProps = {
   children: ReactNode
 }
 
-export default function Layout({ children }: LayoutProps) {
+function Layout(props: LayoutProps) {
   return (
-    <div className="min-h-screen bg-background">
-      <main className="container mx-auto px-4 py-8">
-        {children}
-      </main>
-    </div>
+    <main className="min-h-screen">
+      {props.children}
+    </main>
   )
-} 
+}
+
+export default Layout 
