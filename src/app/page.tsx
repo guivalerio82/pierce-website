@@ -96,6 +96,36 @@ export default function Home() {
     </div>
   );
 
+  const centeredEmailForm = (
+    <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto">
+      <div className="flex-1">
+        <Input
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="flex-1 h-10 w-full"
+          required
+          disabled={isLoading}
+          aria-label="Email address"
+        />
+        {error && (
+          <p className="text-red-500 text-sm mt-1" role="alert">
+            {error}
+          </p>
+        )}
+      </div>
+      <Button 
+        type="submit"
+        size="lg"
+        disabled={isLoading}
+        className="bg-[#86d5b7] hover:bg-[#76c5a7] text-pierce-dark whitespace-nowrap"
+      >
+        {isLoading ? 'Submitting...' : 'Join the early access list'}
+      </Button>
+    </form>
+  );
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -250,19 +280,36 @@ export default function Home() {
       </section>
 
       {/* Final CTA Section */}
-      <section className="py-24 bg-[#86d5b7]/10">
+      <section className="py-16 bg-[#86d5b7]/30">
         <div className="container px-4 md:px-6">
           <motion.div 
             className="max-w-2xl mx-auto text-center"
             {...fadeIn}
           >
+            {/* Add the goal types image */}
+            <motion.div 
+              className="mb-2 relative h-[60px] w-full max-w-[300px] mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            >
+              <Image
+                src="/goal-types.png"
+                alt="Different types of goals Pierce can help you achieve"
+                fill
+                className="object-contain"
+                priority
+              />
+            </motion.div>
+
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Ready to achieve your next goal?
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
               Join the waitlist for early access. We'll be in touch when we launch.
             </p>
-            {isSubmitted ? successMessage : emailForm}
+            {isSubmitted ? successMessage : centeredEmailForm}
           </motion.div>
         </div>
       </section>
