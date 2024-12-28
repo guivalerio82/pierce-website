@@ -152,10 +152,10 @@ export default function Home() {
               </motion.div>
 
               <h1 className="text-4xl md:text-6xl font-bold tracking-tighter">
-                Achieve your goals with Pierce: Your AI-Powered companion
+                Achieve your goals with Pierce: Your AI-powered coach for lasting success
               </h1>
               <p className="text-xl text-muted-foreground">
-                Turn dreams into reality with personalised guidance and support
+              Get clear, personalised plans and support to help you stay on track
               </p>
               {isSubmitted ? successMessage : emailForm}
             </motion.div>
