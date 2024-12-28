@@ -261,7 +261,7 @@ export default function Home() {
               </motion.div>
               
               <motion.div 
-                className="relative h-[500px]"
+                className="relative w-full h-auto"
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
@@ -270,8 +270,10 @@ export default function Home() {
                 <Image
                   src="/app-mockup.jpg"
                   alt="Person using Pierce AI assistant"
-                  fill
-                  className="object-cover rounded-lg"
+                  width={309}
+                  height={625}
+                  className="object-contain rounded-lg mx-auto"
+                  priority
                 />
               </motion.div>
             </div>
