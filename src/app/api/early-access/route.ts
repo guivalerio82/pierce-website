@@ -1,33 +1,40 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import { supabase } from '@/lib/supabase';
+import { NextResponse } from 'next/server';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
-
-  const { email } = req.body;
-
-  if (!email || !email.includes('@')) {
-    return res.status(400).json({ error: 'Valid email is required' });
-  }
-
+export async function POST(request: Request) {
   try {
-    const { data, error } = await supabase
-      .from('early_access_signups')
-      .insert([{ email }])
-      .select();
+    const { email } = await request.json();
 
-    if (error) throw error;
-
-    return res.status(200).json({ message: 'Successfully signed up for early access' });
-  } catch (error: any) {
-    if (error?.code === '23505') {
-      return res.status(400).json({ error: 'This email has already signed up' });
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { error: 'Please enter a valid email address' },
+        { status: 400 }
+      );
     }
-    return res.status(500).json({ error: 'Error signing up for early access' });
+
+    // Insert email into Supabase
+    const { error } = await supabase
+      .from('early_access_signups')
+      .insert([{ email }]);
+
+    if (error) {
+      if (error.code === '23505') { // Unique violation error code
+        return NextResponse.json(
+          { error: 'This email has already been registered' },
+          { status: 400 }
+        );
+      }
+      throw error;
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error('Error submitting email:', error);
+    return NextResponse.json(
+      { error: 'Failed to submit email. Please try again later.' },
+      { status: 500 }
+    );
   }
 } 

@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Icons } from '@/components/icons'
 import { RotatingGoals } from '@/components/RotatingGoals'
+import { useState } from 'react'
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
@@ -14,10 +15,80 @@ const fadeIn = {
 };
 
 export default function Home() {
-  const handleEmailSubmit = (e: React.FormEvent) => {
+  const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle email submission
+    setError('');
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/early-access', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error);
+      }
+
+      setIsSubmitted(true);
+      setEmail('');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong');
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  const emailForm = (
+    <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-3 max-w-xl">
+      <div className="flex-1">
+        <Input
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="flex-1 h-10"
+          required
+          disabled={isLoading}
+          aria-label="Email address"
+        />
+        {error && (
+          <p className="text-red-500 text-sm mt-1" role="alert">
+            {error}
+          </p>
+        )}
+      </div>
+      <Button 
+        type="submit"
+        size="lg"
+        disabled={isLoading}
+        className="bg-[#86d5b7] hover:bg-[#76c5a7] text-pierce-dark whitespace-nowrap"
+      >
+        {isLoading ? 'Submitting...' : 'Join the early access list'}
+      </Button>
+    </form>
+  );
+
+  const successMessage = (
+    <div className="text-center p-4 bg-green-50 rounded-lg">
+      <h3 className="text-lg font-semibold text-green-800 mb-2">
+        Thank you for signing up!
+      </h3>
+      <p className="text-green-700">
+        We'll notify you when early access becomes available.
+      </p>
+    </div>
+  );
 
   return (
     <div className="min-h-screen">
@@ -50,24 +121,10 @@ export default function Home() {
               <p className="text-xl text-muted-foreground">
                 Turn dreams into reality with personalised guidance and support
               </p>
-              <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md">
-                <Input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1"
-                  required
-                />
-                <Button 
-                  type="submit"
-                  size="lg"
-                  className="bg-[#86d5b7] hover:bg-[#76c5a7] text-pierce-dark whitespace-nowrap"
-                >
-                  Join the early access list
-                </Button>
-              </form>
+              {isSubmitted ? successMessage : emailForm}
             </motion.div>
             <motion.div 
-              className="relative aspect-[3/4] w-full"
+              className="relative aspect-[3/4] w-[90%] mx-auto"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
@@ -199,21 +256,7 @@ export default function Home() {
             <p className="text-lg text-muted-foreground mb-8">
               Join the waitlist for early access. We'll be in touch when we launch.
             </p>
-            <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1"
-                required
-              />
-              <Button 
-                type="submit"
-                size="lg"
-                className="bg-[#86d5b7] hover:bg-[#76c5a7] text-pierce-dark"
-              >
-                Get early access
-              </Button>
-            </form>
+            {isSubmitted ? successMessage : emailForm}
           </motion.div>
         </div>
       </section>
