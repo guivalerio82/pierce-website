@@ -198,23 +198,20 @@ export default function Home() {
               { icon: 'procrastination', title: 'Procrastination', description: 'Turn intention into action with timely nudges' },
               { icon: 'direction', title: 'Unclear direction', description: 'Get clarity with structured goal planning' },
               { icon: 'anxiety', title: 'Goal-setting anxiety', description: 'Build confidence with expert guidance' },
-            ].map((item) => {
-              const Icon = Icons[item.icon];
-              return (
-                <motion.div 
-                  key={item.title}
-                  className="flex flex-col items-center text-center p-6 rounded-lg bg-gray-50"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  viewport={{ once: true }}
-                >
-                  <Icon className="w-12 h-12 mb-4 text-[#86d5b7]" />
-                  <h3 className="font-semibold mb-2">{item.title}</h3>
-                  <p className="text-muted-foreground">{item.description}</p>
-                </motion.div>
-              );
-            })}
+            ].map((item) => (
+              <motion.div 
+                key={item.title}
+                className="flex flex-col items-center text-center p-6 rounded-lg bg-gray-50"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+              >
+                {Icons[item.icon as keyof typeof Icons]({ className: "w-12 h-12 mb-4 text-[#86d5b7]" })}
+                <h3 className="font-semibold mb-2">{item.title}</h3>
+                <p className="text-muted-foreground">{item.description}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -244,19 +241,51 @@ export default function Home() {
                 viewport={{ once: true }}
               >
                 {[
-                  'Plan your goals with AI precision',
-                  'Break down goals into daily actions',
-                  'Stay motivated with daily check-ins',
-                  'Access curated resources and guides',
-                ].map((feature) => (
-                  <div key={feature} className="flex items-center gap-3">
-                    <div className="h-6 w-6 rounded-full bg-[#86d5b7] flex items-center justify-center">
-                      <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
+                  {
+                    icon: 'target',
+                    title: 'Plan your goals with clarity and precision',
+                    description: 'Get a clear roadmap to achieve your ambitions'
+                  },
+                  {
+                    icon: 'steps',
+                    title: 'Break down your goals into daily actions',
+                    description: 'Transform big dreams into manageable daily tasks'
+                  },
+                  {
+                    icon: 'sparkles',
+                    title: 'Stay motivated with daily check-ins',
+                    description: 'Build momentum with personalized encouragement'
+                  },
+                  {
+                    icon: 'book',
+                    title: 'Access curated resources and guides',
+                    description: 'Learn from expert-crafted content tailored to your goals'
+                  },
+                  {
+                    icon: 'users',
+                    title: 'Have instant access to an accountability buddy',
+                    description: 'Never feel alone on your journey to success'
+                  }
+                ].map((feature, index) => (
+                  <motion.div
+                    key={feature.title}
+                    className="flex items-start gap-4 p-4 rounded-xl hover:bg-[#86d5b7]/10 transition-all duration-300"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    whileHover={{ x: 8 }}
+                  >
+                    <div className="h-12 w-12 shrink-0 rounded-xl bg-[#86d5b7]/20 flex items-center justify-center">
+                      {Icons[feature.icon as keyof typeof Icons]({ 
+                        className: "h-6 w-6 text-[#86d5b7]" 
+                      })}
                     </div>
-                    <span className="text-lg">{feature}</span>
-                  </div>
+                    <div className="space-y-1">
+                      <h3 className="font-semibold text-lg">{feature.title}</h3>
+                      <p className="text-muted-foreground">{feature.description}</p>
+                    </div>
+                  </motion.div>
                 ))}
               </motion.div>
               
@@ -268,7 +297,7 @@ export default function Home() {
                 viewport={{ once: true }}
               >
                 <Image
-                  src="/app-mockup.jpg"
+                  src="/app-mockup.gif"
                   alt="Person using Pierce AI assistant"
                   width={309}
                   height={625}
