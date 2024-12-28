@@ -66,7 +66,7 @@ export default function Home() {
           className="flex-1 h-10"
           required
           disabled={isLoading}
-          aria-label="Email address"
+          aria-label="Your email address"
         />
         {error && (
           <p className="text-red-500 text-sm mt-1" role="alert">
@@ -83,6 +83,28 @@ export default function Home() {
         {isLoading ? 'Submitting...' : 'Join the early access list'}
       </Button>
     </form>
+  );
+
+  const credibilityLabel = (
+    <motion.div 
+      className="flex items-center gap-3 mt-16 text-sm text-muted-foreground/70"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.6, duration: 0.5 }}
+    >
+      <Image
+        src="/kings-college-logo.jpg"
+        alt="King's College London"
+        width={100}
+        height={80}
+        className="opacity-80"
+      />
+      <span className="border-l border-gray-300 h-6" />
+      <p>
+        Developed using science-proven techniques.
+        <br/>Backed by Neuroscientists from King's College London
+      </p>
+    </motion.div>
   );
 
   const successMessage = (
@@ -157,7 +179,10 @@ export default function Home() {
               <p className="text-xl text-muted-foreground">
               Get clear, personalised plans and support to help you stay on track
               </p>
-              {isSubmitted ? successMessage : emailForm}
+              <div>
+                {isSubmitted ? successMessage : emailForm}
+                {credibilityLabel}
+              </div>
             </motion.div>
             <motion.div 
               className="relative aspect-[3/4] w-[90%] mx-auto"
@@ -188,13 +213,13 @@ export default function Home() {
               Struggling to <RotatingGoals />?
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Many young adults face common challenges when pursuing their dreams. Here's what we help you overcome:
+              You're not alone in your journey. Pierce will help you overcome the challenges ahead.
             </p>
           </motion.div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
             {[
-              { icon: 'motivation', title: 'Lack of motivation', description: 'Stay driven with AI-powered encouragement' },
+              { icon: 'motivation', title: 'Lack of motivation', description: 'Keep your momentum with tailored inspiration' },
               { icon: 'procrastination', title: 'Procrastination', description: 'Turn intention into action with timely nudges' },
               { icon: 'direction', title: 'Unclear direction', description: 'Get clarity with structured goal planning' },
               { icon: 'anxiety', title: 'Goal-setting anxiety', description: 'Build confidence with expert guidance' },
@@ -244,26 +269,26 @@ export default function Home() {
                   {
                     icon: 'target',
                     title: 'Plan your goals with clarity and precision',
-                    description: 'Get a clear roadmap to achieve your ambitions'
+                    description: 'Get a clear action plan to achieve your ambitions'
                   },
                   {
                     icon: 'steps',
                     title: 'Break down your goals into daily actions',
-                    description: 'Transform big dreams into manageable daily tasks'
+                    description: 'Transform big goals into manageable tasks'
                   },
                   {
                     icon: 'sparkles',
-                    title: 'Stay motivated with daily check-ins',
-                    description: 'Build momentum with personalized encouragement'
+                    title: 'Stay motivated with regular check-ins',
+                    description: 'Build momentum with tailored support'
                   },
                   {
                     icon: 'book',
-                    title: 'Access curated resources and guides',
-                    description: 'Learn from expert-crafted content tailored to your goals'
+                    title: 'Access curated tips and resources',
+                    description: 'AI recommended content tailored to your goals and tasks'
                   },
                   {
                     icon: 'users',
-                    title: 'Have instant access to an accountability buddy',
+                    title: 'Have instant access to an accountability buddy, 24/7',
                     description: 'Never feel alone on your journey to success'
                   }
                 ].map((feature, index) => (
