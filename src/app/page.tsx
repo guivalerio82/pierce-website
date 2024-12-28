@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Icons } from '@/components/icons'
 import { RotatingGoals } from '@/components/RotatingGoals'
 import { useState } from 'react'
+import { getReferrerInfo } from '@/lib/utils'
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
@@ -26,12 +27,17 @@ export default function Home() {
     setIsLoading(true);
 
     try {
+      const referrer = getReferrerInfo();
+      
       const response = await fetch('/api/early-access', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ 
+          email,
+          referrer 
+        }),
       });
 
       const data = await response.json();

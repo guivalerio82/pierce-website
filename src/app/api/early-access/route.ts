@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
-    const { email } = await request.json();
+    const { email, referrer } = await request.json();
 
     // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -14,10 +14,13 @@ export async function POST(request: Request) {
       );
     }
 
-    // Insert email into Supabase
+    // Insert email and referrer into Supabase
     const { error } = await supabase
       .from('early_access_signups')
-      .insert([{ email }]);
+      .insert([{ 
+        email,
+        referrer: referrer || null // Store as null if no referrer
+      }]);
 
     if (error) {
       if (error.code === '23505') { // Unique violation error code
