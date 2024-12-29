@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { metadata as siteMetadata } from './metadata'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
+import ConsentManager from '@/components/ConsentManager'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -32,6 +33,7 @@ export default function RootLayout({
       if (GA_MEASUREMENT_ID) {
         return (
           <>
+            <ConsentManager />
             <GoogleAnalytics />
             <div className="hidden">
               Environment: {process.env.NODE_ENV}
@@ -41,7 +43,7 @@ export default function RootLayout({
         )
       }
       console.warn('Google Analytics Measurement ID is not configured')
-      return null
+      return <ConsentManager />
     }
     
     if (process.env.NODE_ENV === 'development') {
