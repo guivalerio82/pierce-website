@@ -27,25 +27,33 @@ export default function RootLayout({
   console.log('GA Measurement ID:', GA_MEASUREMENT_ID)
   console.log('Base URL:', process.env.NEXT_PUBLIC_BASE_URL)
 
+  const renderAnalytics = () => {
+    if (process.env.NODE_ENV === 'production') {
+      if (GA_MEASUREMENT_ID) {
+        return (
+          <>
+            <GoogleAnalytics />
+            <div className="hidden">
+              Environment: {process.env.NODE_ENV}
+              GA ID: {GA_MEASUREMENT_ID}
+            </div>
+          </>
+        )
+      }
+      console.warn('Google Analytics Measurement ID is not configured')
+      return null
+    }
+    
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Google Analytics is disabled in development')
+    }
+    return null
+  }
+
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {process.env.NODE_ENV === 'production' ? (
-          GA_MEASUREMENT_ID ? (
-            <>
-              <GoogleAnalytics />
-              <div className="hidden">
-                Environment: {process.env.NODE_ENV}
-                GA ID: {GA_MEASUREMENT_ID}
-              </div>
-            </>
-          ) : (
-            console.warn('Google Analytics Measurement ID is not configured')
-          )
-        ) : (
-          process.env.NODE_ENV === 'development' &&
-          console.log('Google Analytics is disabled in development')
-        )}
+        {renderAnalytics()}
         {children}
       </body>
     </html>
