@@ -1,25 +1,25 @@
 import { Metadata } from 'next'
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://pierceai.com'
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://meetpierce.com'
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
-  title: 'Pierce AI - Your AI-Powered Goal Achievement Companion',
-  description: 'Transform your dreams into reality with Pierce AI. Get personalized guidance, break down goals into actionable steps, and stay motivated with AI-powered support.',
+  title: 'Pierce AI - Your AI-Powered Coach for Lasting Success',
+  description: 'Get clear, personalised plans and support to help you stay on track. Powered by advanced AI and backed by Neuroscientists from King\'s College London.',
   
   // OpenGraph metadata
   openGraph: {
     type: 'website',
     url: baseUrl,
-    title: 'Pierce AI - Your AI-Powered Goal Achievement Companion',
-    description: 'Transform your dreams into reality with Pierce AI. Get personalized guidance, break down goals into actionable steps, and stay motivated with AI-powered support.',
+    title: 'Pierce AI - Your AI-Powered Coach for Lasting Success',
+    description: 'Transform big goals into manageable tasks with Pierce AI. Get personalized guidance, daily action plans, and 24/7 accountability support to achieve your goals.',
     siteName: 'Pierce AI',
     images: [
       {
-        url: `${baseUrl}/og-image.jpg`, // Make sure to create this image
+        url: `${baseUrl}/og-image.jpg`,
         width: 1200,
         height: 630,
-        alt: 'Pierce AI - Goal Achievement Platform',
+        alt: 'Pierce AI - Your Personal Goal Achievement Assistant',
       }
     ],
   },
@@ -27,23 +27,25 @@ export const metadata: Metadata = {
   // Twitter metadata
   twitter: {
     card: 'summary_large_image',
-    title: 'Pierce AI - Your AI-Powered Goal Achievement Companion',
-    description: 'Transform your dreams into reality with Pierce AI. Get personalized guidance, break down goals into actionable steps, and stay motivated with AI-powered support.',
+    title: 'Pierce AI - Your AI-Powered Coach for Lasting Success',
+    description: 'Transform big goals into manageable tasks with Pierce AI. Get personalized guidance, daily action plans, and 24/7 accountability support.',
     images: [`${baseUrl}/og-image.jpg`],
-    creator: '@PierceAI', // Replace with your Twitter handle
-    site: '@PierceAI', // Replace with your Twitter handle
+    creator: '@PierceAI',
+    site: '@PierceAI',
   },
 
   // Additional metadata
   keywords: [
-    'AI goal setting',
+    'AI goal coach',
     'personal development',
     'goal achievement',
-    'AI assistant',
+    'AI accountability',
     'productivity',
-    'personal growth',
     'motivation',
-    'goal tracking'
+    'goal planning',
+    'daily action plans',
+    'goal tracking',
+    'personal AI assistant'
   ],
   authors: [{ name: 'Pierce AI Team' }],
   robots: {
