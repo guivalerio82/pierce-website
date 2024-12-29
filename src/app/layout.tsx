@@ -14,6 +14,8 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 })
 
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
+
 export const metadata: Metadata = siteMetadata
 
 export default function RootLayout({
@@ -24,7 +26,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {process.env.NODE_ENV === 'production' && <GoogleAnalytics />}
+        {process.env.NODE_ENV === 'production' ? (
+          GA_MEASUREMENT_ID ? (
+            <GoogleAnalytics />
+          ) : (
+            console.warn('Google Analytics Measurement ID is not configured')
+          )
+        ) : (
+          process.env.NODE_ENV === 'development' &&
+          console.log('Google Analytics is disabled in development')
+        )}
         {children}
       </body>
     </html>
