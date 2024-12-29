@@ -57,4 +57,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: baseUrl,
   },
+  verification: {
+    google: 'G-LPYMQG5BRE',
+  },
 } 
