@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: baseUrl,
-    title: 'Pierce AI - Your AI-Powered Coach for Lasting Success',
+    title: 'Pierce AI - Your AI-Powered coach for lasting success',
     description: 'Transform big goals into manageable tasks with Pierce AI. Get personalized guidance, daily action plans, and 24/7 accountability support to achieve your goals.',
     siteName: 'Pierce AI',
     images: [
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   // Twitter metadata
   twitter: {
     card: 'summary_large_image',
-    title: 'Pierce AI - Your AI-Powered Coach for Lasting Success',
+    title: 'Pierce AI - Your AI-Powered coach for lasting success',
     description: 'Transform big goals into manageable tasks with Pierce AI. Get personalized guidance, daily action plans, and 24/7 accountability support.',
     images: [`${baseUrl}/og-image.jpg`],
     creator: '@PierceAI',

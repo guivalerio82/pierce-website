@@ -17,7 +17,20 @@ const geistMono = Geist_Mono({
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 
-export const metadata: Metadata = siteMetadata
+export const metadata = {
+  title: 'Pierce - Your AI Goal Achievement Coach',
+  description: 'Pierce helps you achieve your goals with AI-powered coaching and personalized support.',
+  icons: {
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' }
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }
+    ]
+  },
+};
 
 export default function RootLayout({
   children,
