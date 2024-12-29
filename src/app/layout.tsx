@@ -24,10 +24,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  console.log('Current Environment:', process.env.NODE_ENV)
-  console.log('GA Measurement ID:', GA_MEASUREMENT_ID)
-  console.log('Base URL:', process.env.NEXT_PUBLIC_BASE_URL)
-
   const renderAnalytics = () => {
     if (process.env.NODE_ENV === 'production') {
       if (GA_MEASUREMENT_ID) {

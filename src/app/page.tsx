@@ -102,7 +102,7 @@ export default function Home() {
       <span className="border-l border-gray-300 h-6" />
       <p>
         Developed using science-proven techniques.
-        <br/>Backed by Neuroscientists from King's College London
+        Backed by Neuroscientists from King's College London.
       </p>
     </motion.div>
   );
