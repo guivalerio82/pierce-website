@@ -23,12 +23,22 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  console.log('Current Environment:', process.env.NODE_ENV)
+  console.log('GA Measurement ID:', GA_MEASUREMENT_ID)
+  console.log('Base URL:', process.env.NEXT_PUBLIC_BASE_URL)
+
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {process.env.NODE_ENV === 'production' ? (
           GA_MEASUREMENT_ID ? (
-            <GoogleAnalytics />
+            <>
+              <GoogleAnalytics />
+              <div className="hidden">
+                Environment: {process.env.NODE_ENV}
+                GA ID: {GA_MEASUREMENT_ID}
+              </div>
+            </>
           ) : (
             console.warn('Google Analytics Measurement ID is not configured')
           )
