@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://meetpierce.com
+
+# Sitemaps
+Sitemap: https://meetpierce.com/sitemap.xml 
