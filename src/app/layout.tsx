@@ -97,6 +97,11 @@ export const metadata = {
       'max-snippet': -1,
     },
   },
+
+  // Add canonical URL
+  alternates: {
+    canonical: 'https://meetpierce.com',
+  },
 };
 
 export default function RootLayout({
