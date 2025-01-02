@@ -13,6 +13,11 @@ const nextConfig = {
             type: 'host',
             value: 'meetpierce.com',
           },
+          {
+            type: 'header',
+            key: 'x-forwarded-proto',
+            value: 'http',
+          },
         ],
         destination: 'https://meetpierce.com/:path*',
         permanent: true,
